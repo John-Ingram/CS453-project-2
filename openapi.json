@@ -1,0 +1,186 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mechanics Shop API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/cars": {
+      "get": {
+        "summary": "Get all cars in the shop",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new car to the shop",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500":{
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "get": {
+        "summary": "Get a car in the shop",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the car to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a car in the shop",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the car to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Car"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove a car from the shop",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the car to remove"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Car": {
+        "type": "object",
+        "required": [
+          "vin",
+          "plateno_state",
+          "make_model",
+          "year",
+          "owner_name",
+          "owner_address",
+          "owner_dlno"
+        ],
+        "properties": {
+          "vin": {
+            "type": "string",
+            "description": "Unique identifier for the car"
+          },
+          "plateno_state": {
+            "type": "string",
+            "description": "License Plate Number and State of the car"
+          },
+          "make_model": {
+            "type": "string",
+            "description": "Make and Model of the car"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Year of the car"
+          },
+          "owner_name": {
+            "type": "string",
+            "description": "Name of the owner of the car"
+          },
+          "owner_address": {
+            "type": "string",
+            "description": "Address of the owner of the car"
+          },
+          "owner_dlno": {
+            "type": "string",
+            "description": "Driver's License Number of the owner of the car"
+          },
+          "problem": {
+            "type": "string",
+            "description": "A description of the problem with the car"
+          },
+          "time_in_out": {
+            "type": "string",
+            "description": "Time the car was brought in and time the car was picked up"
+          },
+          "workers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of workers who worked on the car"
+          }
+        }
+      }
+    }
+  }
+}
